@@ -1,124 +1,113 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CHELCO | Rail & Infrastructure</title>
+    <title>CHELCO | Rail & Infrastructure Engineering Services</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
-        :root { --navy: #1a2b48; --orange: #f39c12; --light: #f9f9f9; }
-        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; color: #333; line-height: 1.6; }
-        header { display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; background: #fff; border-bottom: 3px solid var(--navy); sticky: top; }
-        .logo img { height: 70px; }
-        .lang-switch button { background: var(--navy); color: white; border: none; padding: 8px 15px; cursor: pointer; font-weight: bold; margin-left: 5px; border-radius: 4px; }
-        
-        .hero { background: var(--light); padding: 50px 5%; text-align: center; border-bottom: 1px solid #ddd; }
-        .hero h1 { color: var(--navy); margin-bottom: 10px; font-size: 2.2rem; }
-        .phases-bar { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 20px; }
-        .phase-badge { background: #e0e0e0; padding: 5px 15px; border-radius: 20px; font-size: 0.9rem; font-weight: bold; color: var(--navy); border: 1px solid #ccc; }
-
-        .services-section { padding: 50px 5%; max-width: 1000px; margin: 0 auto; }
-        .service-category { margin-bottom: 30px; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; }
-        .category-header { background: var(--navy); color: white; padding: 20px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
-        .category-header:hover { background: #243b61; }
-        .category-content { padding: 20px; display: none; background: white; }
-        .category-content ul { list-style: none; padding: 0; }
-        .category-content li { padding: 10px 0; border-bottom: 1px solid #eee; display: flex; align-items: center; }
-        .category-content li::before { content: "•"; color: var(--orange); font-weight: bold; width: 20px; display: inline-block; }
-        
-        footer { text-align: center; padding: 30px; background: var(--navy); color: white; font-size: 0.9rem; }
-        .show { display: block !important; }
-    </style>
-</head>
-<body>
-
-<header>
-    <div class="logo">
-        <img src="logo.png" alt="CHELCO Rail & Infrastructure">
-    </div>
-    <div class="lang-switch">
-        <button onclick="changeLang('tr')">TR</button>
-        <button onclick="changeLang('en')">EN</button>
-    </div>
-</header>
-
-<section class="hero">
-    <h1 id="main-title">Demiryolu ve Altyapı Tasarım Hizmetleri</h1>
-    <div class="phases-bar" id="phases-list">
-        </div>
-</section>
-
-<main class="services-section">
-    <div class="service-category">
-        <div class="category-header" onclick="toggleCategory('cat1')">
-            <span id="cat1-title">Tasarım Yönetimi</span>
-            <span>▼</span>
-        </div>
-        <div id="cat1" class="category-content">
-            <ul id="cat1-list"></ul>
-        </div>
-    </div>
-
-    <div class="service-category">
-        <div class="category-header" onclick="toggleCategory('cat2')">
-            <span id="cat2-title">Mühendislik</span>
-            <span>▼</span>
-        </div>
-        <div id="cat2" class="category-content">
-            <ul id="cat2-list"></ul>
-        </div>
-    </div>
-</main>
-
-<footer>
-    <p>&copy; 2026 CHELCO Rail & Infrastructure</p>
-</footer>
-
-<script>
-    const content = {
-        tr: {
-            title: "Demiryolu ve Altyapı Tasarım Hizmetleri",
-            phases: ["İhale Tasarımı", "Uygulamaya Esas Kesin Proje Tasarımı", "Uygulama Tasarımı", "As-Built Tasarım"],
-            cat1Title: "Tasarım Yönetimi",
-            cat1Items: ["Arayüz Yönetimi", "Şartname ve Gereklilikler Yönetimi", "Kapsam Yönetimi", "Maliyet ve Zaman Yönetimi", "Kalite Yönetimi", "Dokümantasyon Yönetimi"],
-            cat2Title: "Mühendislik",
-            cat2Items: ["Hat Üst Yapısı Tasarımı", "Hat Güzergah Tasarımı", "Drenaj Tasarımı"]
-        },
-        en: {
-            title: "Rail and Infrastructure Engineering Services",
-            phases: ["Tender Design", "RFP Design", "Basic Design", "Detailed Design", "As-Built Design"],
-            cat1Title: "Design Management",
-            cat1Items: ["Interface Management", "Requirements Management", "Scope Management", "Cost and Time Management", "Quality Management", "Documentation Management"],
-            cat2Title: "Engineering",
-            cat2Items: ["Trackwork Design", "Alignment Design", "Drainage Design"]
+        :root {
+            --navy: #1a2b48;
+            --orange: #f39c12;
+            --white: #ffffff;
+            --light-bg: #f4f7f9;
+            --text: #2c3e50;
         }
-    };
 
-    function changeLang(lang) {
-        document.getElementById('main-title').innerText = content[lang].title;
-        document.getElementById('cat1-title').innerText = content[lang].cat1Title;
-        document.getElementById('cat2-title').innerText = content[lang].cat2Title;
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Roboto', sans-serif; color: var(--text); background-color: var(--white); overflow-x: hidden; }
 
-        // Tasarım Aşamalarını Güncelle
-        const phasesDiv = document.getElementById('phases-list');
-        phasesDiv.innerHTML = content[lang].phases.map(p => `<span class="phase-badge">${p}</span>`).join('');
+        /* Header & Language Switch */
+        header {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+            padding: 20px 5%;
+            z-index: 100;
+        }
 
-        // Tasarım Yönetimi Listesini Güncelle
-        const cat1Div = document.getElementById('cat1-list');
-        cat1Div.innerHTML = content[lang].cat1Items.map(i => `<li>${i}</li>`).join('');
+        .lang-switch button {
+            background: rgba(26, 43, 72, 0.05);
+            border: 1px solid var(--navy);
+            color: var(--navy);
+            padding: 6px 15px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-left: 10px;
+            border-radius: 2px;
+            transition: 0.3s;
+            font-family: 'Montserrat', sans-serif;
+        }
 
-        // Mühendislik Listesini Güncelle
-        const cat2Div = document.getElementById('cat2-list');
-        cat2Div.innerHTML = content[lang].cat2Items.map(i => `<li>${i}</li>`).join('');
-    }
+        .lang-switch button:hover {
+            background: var(--navy);
+            color: white;
+        }
 
-    function toggleCategory(id) {
-        const contentDiv = document.getElementById(id);
-        contentDiv.classList.toggle('show');
-    }
+        /* Hero Section - Logo and Title Centered */
+        .hero {
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(to bottom, #ffffff 0%, #f8f9fa 100%);
+            padding: 0 5%;
+        }
 
-    // İlk açılışta Türkçe yükle
-    changeLang('tr');
-</script>
+        .hero img {
+            max-width: 450px; /* Logoyu büyüttük */
+            height: auto;
+            margin-bottom: 25px;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.05));
+        }
 
-</body>
-</html>
+        .hero h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            font-size: 1.8rem;
+            letter-spacing: 2px;
+            color: var(--navy);
+            text-transform: uppercase;
+        }
+
+        /* Design Phases - Minimalist Bar */
+        .phases-container {
+            background: var(--navy);
+            padding: 15px 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .phase-tag {
+            color: #bdc3c7;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .phase-tag.active { color: var(--orange); }
+
+        /* Services Grid */
+        .services-wrapper {
+            max-width: 1100px;
+            margin: 80px auto;
+            padding: 0 5%;
+        }
+
+        .section-title {
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            margin-bottom: 50px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .section
