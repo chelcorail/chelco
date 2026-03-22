@@ -4,160 +4,118 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CHELCO | Rail & Infrastructure Engineering Services</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --navy: #1a2b48;
-            --orange: #f39c12;
-            --light-gray: #f8f9fa;
-            --text-main: #2c3e50;
-        }
-
+        :root { --navy: #1a2b48; --orange: #f39c12; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { 
-            font-family: 'Roboto', sans-serif; 
-            color: var(--text-main); 
-            background-color: #fff;
-            line-height: 1.6;
+        body { font-family: 'Roboto', sans-serif; color: #333; background: #fff; line-height: 1.6; }
+        
+        /* Dil Butonları */
+        .lang-nav { position: absolute; top: 20px; right: 5%; z-index: 100; }
+        .lang-nav button { background: white; border: 1px solid var(--navy); color: var(--navy); padding: 5px 15px; cursor: pointer; font-weight: bold; margin-left: 5px; transition: 0.3s; }
+        .lang-nav button:hover { background: var(--navy); color: white; }
+
+        /* Hero Bölümü */
+        .hero { height: 70vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; background: #f8f9fa; padding: 0 20px; }
+        .hero img { max-width: 350px; width: 80%; height: auto; margin-bottom: 25px; }
+        .hero h1 { font-family: 'Montserrat', sans-serif; font-weight: 300; font-size: 1.5rem; letter-spacing: 3px; color: var(--navy); text-transform: uppercase; }
+
+        /* Siyah Bant - Fazlar */
+        .phases { background: var(--navy); padding: 15px; display: flex; justify-content: center; flex-wrap: wrap; gap: 20px; }
+        .phase-text { color: #bdc3c7; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; }
+
+        /* Hizmetler */
+        .services { max-width: 1000px; margin: 60px auto; padding: 0 5%; }
+        .services h2 { text-align: center; font-family: 'Montserrat', sans-serif; margin-bottom: 40px; color: var(--navy); }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .card { border: 1px solid #eee; padding: 30px; cursor: pointer; transition: 0.3s; background: #fff; }
+        .card:hover { border-top: 4px solid var(--orange); box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+        .card h3 { font-family: 'Montserrat', sans-serif; color: var(--navy); margin-bottom: 15px; }
+        .list { display: none; list-style: none; margin-top: 15px; border-top: 1px solid #f4f4f4; padding-top: 15px; }
+        .list li { padding: 5px 0; font-size: 0.9rem; color: #666; }
+        .list li::before { content: "• "; color: var(--orange); font-weight: bold; }
+        
+        .active { display: block !important; }
+        footer { background: #111; color: #555; padding: 40px; text-align: center; font-size: 0.8rem; margin-top: 100px; }
+    </style>
+</head>
+<body>
+
+<div class="lang-nav">
+    <button onclick="translatePage('en')">EN</button>
+    <button onclick="translatePage('tr')">TR</button>
+</div>
+
+<section class="hero">
+    <img src="logo.png" alt="CHELCO Logo">
+    <h1 id="hero-title">Rail and Infrastructure Engineering Services</h1>
+</section>
+
+<div class="phases" id="phase-list"></div>
+
+<section class="services">
+    <h2 id="expertise-title">Expertise</h2>
+    <div class="grid">
+        <div class="card" onclick="toggleList('mgmt-list')">
+            <h3 id="mgmt-title">Design Management</h3>
+            <ul id="mgmt-list" class="list"></ul>
+        </div>
+        <div class="card" onclick="toggleList('eng-list')">
+            <h3 id="eng-title">Engineering Services</h3>
+            <ul id="eng-list" class="list"></ul>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <p>&copy; 2026 CHELCO RAIL & INFRASTRUCTURE</p>
+</footer>
+
+<script>
+    const content = {
+        en: {
+            hero: "Rail and Infrastructure Engineering Services",
+            exp: "Expertise",
+            mgmt: "Design Management",
+            eng: "Engineering Services",
+            phases: ["Tender Design", "RFP Design", "Basic Design", "Detailed Design", "As-Built Design"],
+            mgmtItems: ["Interface Management", "Requirements Management", "Scope Management", "Cost and Time Management", "Quality Management", "Documentation Management"],
+            engItems: ["Trackwork Design", "Alignment Design", "Drainage Design"]
+        },
+        tr: {
+            hero: "Demiryolu ve Altyapı Tasarım Hizmetleri",
+            exp: "Uzmanlık Alanlarımız",
+            mgmt: "Tasarım Yönetimi",
+            eng: "Mühendislik Hizmetleri",
+            phases: ["İhale Tasarımı", "Kesin Proje Tasarımı", "Uygulama Tasarımı", "As-Built Tasarım"],
+            mgmtItems: ["Arayüz Yönetimi", "Şartname ve Gereklilikler Yönetimi", "Kapsam Yönetimi", "Maliyet ve Zaman Yönetimi", "Kalite Yönetimi", "Dokümantasyon Yönetimi"],
+            engItems: ["Hat Üst Yapısı Tasarımı", "Hat Güzergah Tasarımı", "Drenaj Tasarımı"]
         }
+    };
 
-        /* Language Switcher */
-        .top-nav {
-            position: absolute;
-            top: 0;
-            right: 0;
-            padding: 25px 5%;
-            z-index: 1000;
-        }
+    function translatePage(lang) {
+        document.getElementById('hero-title').innerText = content[lang].hero;
+        document.getElementById('expertise-title').innerText = content[lang].exp;
+        document.getElementById('mgmt-title').innerText = content[lang].mgmt;
+        document.getElementById('eng-title').innerText = content[lang].eng;
 
-        .lang-btn {
-            background: transparent;
-            border: 1px solid var(--navy);
-            color: var(--navy);
-            padding: 5px 12px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 0.8rem;
-            transition: 0.3s;
-            margin-left: 5px;
-            text-transform: uppercase;
-        }
+        const pList = document.getElementById('phase-list');
+        pList.innerHTML = content[lang].phases.map(p => `<span class="phase-text">${p}</span>`).join('');
 
-        .lang-btn:hover {
-            background: var(--navy);
-            color: #fff;
-        }
+        const mList = document.getElementById('mgmt-list');
+        mList.innerHTML = content[lang].mgmtItems.map(i => `<li>${i}</li>`).join('');
 
-        /* Hero Section */
-        .hero {
-            height: 75vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            background: radial-gradient(circle, #ffffff 0%, #f2f4f7 100%);
-            padding: 0 20px;
-        }
+        const eList = document.getElementById('eng-list');
+        eList.innerHTML = content[lang].engItems.map(i => `<li>${i}</li>`).join('');
+    }
 
-        .hero img {
-            max-width: 400px;
-            width: 90%;
-            height: auto;
-            margin-bottom: 30px;
-        }
+    function toggleList(id) {
+        document.getElementById(id).classList.toggle('active');
+    }
 
-        .hero h1 {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 300;
-            font-size: 1.6rem;
-            letter-spacing: 4px;
-            color: var(--navy);
-            text-transform: uppercase;
-        }
+    // Site açıldığında direkt çalıştır
+    translatePage('en');
+</script>
 
-        /* Design Phases Ribbon */
-        .phases-ribbon {
-            background: var(--navy);
-            padding: 15px 5%;
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 25px;
-        }
-
-        .phase-item {
-            color: #bdc3c7;
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .phase-item.highlight { color: var(--orange); }
-
-        /* Expertise Section */
-        .content-section {
-            max-width: 1100px;
-            margin: 80px auto;
-            padding: 0 5%;
-        }
-
-        .section-title {
-            text-align: center;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 2rem;
-            margin-bottom: 60px;
-            color: var(--navy);
-            position: relative;
-        }
-
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 50px;
-            height: 3px;
-            background: var(--orange);
-            margin: 15px auto 0;
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 30px;
-        }
-
-        .service-card {
-            background: #fff;
-            border: 1px solid #eee;
-            padding: 40px;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .service-card:hover {
-            box-shadow: 0 15px 40px rgba(0,0,0,0.08);
-            border-top: 4px solid var(--orange);
-            transform: translateY(-5px);
-        }
-
-        .service-card h2 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1.3rem;
-            color: var(--navy);
-            margin-bottom: 10px;
-        }
-
-        .click-hint {
-            font-size: 0.7rem;
-            color: #999;
-            text-transform: uppercase;
-            margin-bottom: 20px;
-            display: block;
-        }
-
-        .sub-list {
-            list-style: none;
-            display: none; /* JS ile açıl
+</body>
+</html>
