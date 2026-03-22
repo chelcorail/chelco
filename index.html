@@ -4,98 +4,100 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CHELCO | Rail & Infrastructure Engineering Services</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
         :root {
             --navy: #1a2b48;
             --orange: #f39c12;
-            --white: #ffffff;
-            --light-bg: #f4f7f9;
-            --text: #2c3e50;
+            --light-gray: #f8f9fa;
+            --text-main: #2c3e50;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Roboto', sans-serif; color: var(--text); background-color: var(--white); overflow-x: hidden; }
+        body { 
+            font-family: 'Roboto', sans-serif; 
+            color: var(--text-main); 
+            background-color: #fff;
+            line-height: 1.6;
+        }
 
-        /* Header & Language Switch */
-        header {
+        /* Language Switcher */
+        .top-nav {
             position: absolute;
             top: 0;
-            width: 100%;
-            display: flex;
-            justify-content: flex-end;
-            padding: 20px 5%;
-            z-index: 100;
+            right: 0;
+            padding: 25px 5%;
+            z-index: 1000;
         }
 
-        .lang-switch button {
-            background: rgba(26, 43, 72, 0.05);
+        .lang-btn {
+            background: transparent;
             border: 1px solid var(--navy);
             color: var(--navy);
-            padding: 6px 15px;
+            padding: 5px 12px;
             cursor: pointer;
             font-weight: 600;
-            margin-left: 10px;
-            border-radius: 2px;
+            font-size: 0.8rem;
             transition: 0.3s;
-            font-family: 'Montserrat', sans-serif;
+            margin-left: 5px;
+            text-transform: uppercase;
         }
 
-        .lang-switch button:hover {
+        .lang-btn:hover {
             background: var(--navy);
-            color: white;
+            color: #fff;
         }
 
-        /* Hero Section - Logo and Title Centered */
+        /* Hero Section */
         .hero {
-            height: 80vh;
+            height: 75vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            background: linear-gradient(to bottom, #ffffff 0%, #f8f9fa 100%);
-            padding: 0 5%;
+            background: radial-gradient(circle, #ffffff 0%, #f2f4f7 100%);
+            padding: 0 20px;
         }
 
         .hero img {
-            max-width: 450px; /* Logoyu büyüttük */
+            max-width: 400px;
+            width: 90%;
             height: auto;
-            margin-bottom: 25px;
-            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.05));
+            margin-bottom: 30px;
         }
 
         .hero h1 {
             font-family: 'Montserrat', sans-serif;
             font-weight: 300;
-            font-size: 1.8rem;
-            letter-spacing: 2px;
+            font-size: 1.6rem;
+            letter-spacing: 4px;
             color: var(--navy);
             text-transform: uppercase;
         }
 
-        /* Design Phases - Minimalist Bar */
-        .phases-container {
+        /* Design Phases Ribbon */
+        .phases-ribbon {
             background: var(--navy);
-            padding: 15px 0;
+            padding: 15px 5%;
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            gap: 20px;
+            gap: 25px;
         }
 
-        .phase-tag {
+        .phase-item {
             color: #bdc3c7;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
+            font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 1px;
-            font-weight: 600;
         }
 
-        .phase-tag.active { color: var(--orange); }
+        .phase-item.highlight { color: var(--orange); }
 
-        /* Services Grid */
-        .services-wrapper {
+        /* Expertise Section */
+        .content-section {
             max-width: 1100px;
             margin: 80px auto;
             padding: 0 5%;
@@ -105,9 +107,57 @@
             text-align: center;
             font-family: 'Montserrat', sans-serif;
             font-size: 2rem;
-            margin-bottom: 50px;
+            margin-bottom: 60px;
+            color: var(--navy);
             position: relative;
-            padding-bottom: 15px;
         }
 
-        .section
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 3px;
+            background: var(--orange);
+            margin: 15px auto 0;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background: #fff;
+            border: 1px solid #eee;
+            padding: 40px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card:hover {
+            box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+            border-top: 4px solid var(--orange);
+            transform: translateY(-5px);
+        }
+
+        .service-card h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.3rem;
+            color: var(--navy);
+            margin-bottom: 10px;
+        }
+
+        .click-hint {
+            font-size: 0.7rem;
+            color: #999;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .sub-list {
+            list-style: none;
+            display: none; /* JS ile açıl
